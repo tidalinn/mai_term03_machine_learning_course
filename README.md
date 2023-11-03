@@ -1,4 +1,4 @@
-# mai_term03_ml_course
+# mai_term03_machine_learning_course
 > ML course (Jumurat Aleksandr)
 
 
