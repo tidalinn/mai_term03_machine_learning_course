@@ -47,5 +47,5 @@ def main():
 
 
 # no need in vercel
-# if __name__ == '__main__':
-#    app.run(debug=True)
+if __name__ == '__main__':
+   app.run(debug=True)
