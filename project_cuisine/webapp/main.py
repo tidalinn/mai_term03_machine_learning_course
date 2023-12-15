@@ -46,6 +46,5 @@ def main():
         return(flask.render_template('main.html', result=prediction))
 
 
-# no need in vercel
 if __name__ == '__main__':
-   app.run(debug=True)
+   app.run()
