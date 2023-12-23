@@ -12,13 +12,11 @@
 
 ## Project description
 
-Contains folders and files of practical project.
+Contains folders and files of seminars and practical project.
 
 
 ### Folders
 
-* `...` - stores ...
-
-
-### Files
-* `...` - stores ...
+* `data` - stores lectures data
+* `lectures` - stores lectures notebooks
+* `project_cuisine` - stores practical project with web app
