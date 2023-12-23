@@ -13,49 +13,121 @@
   </head>
 
   <body class="font-mono">
-    <div class="background-image"></div>
-    
-    <div class="flex items-center justify-center h-screen">
-      <div class="p-12 max-w-lg bg-white rounded-lg overflow-hidden shadow-lg">
-        <div class="font-bold text-xl mb-2">
-          Find out cuisine with a dish name
+    <form id="main-form" action="{{ url_for('main') }}" method="POST">
+      <div class="flex items-center justify-center h-screen space-x-16">
+        <div class="background-image"></div>
+        
+        <div class="flex-initial">
+          <div class="p-12 max-w-lg bg-white rounded-lg overflow-hidden shadow-lg">
+            <div class="font-bold text-xl mb-2">
+              Find out cuisine with a dish name
+            </div>
+            <hr />
+            <br />
+
+            <div>
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="name"
+              >
+                Enter a dish name:
+              </label>
+              <textarea
+                name="name"
+                id="name"
+                class="shadow appearance-none border rounded w-full py-2  px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                rows="5"
+                placeholder="sushi, spicy chicken, ramen, etc."
+                required
+              ></textarea>
+
+              <br />
+
+              <button class="w-full bg-gray-700 hover:bg-blue-700 text-white font-bold mt-8 p-4 text-base rounded focus:outline-none focus:shadow-outline">
+                Find out cuisine
+              </button>
+            </div>
+
+            <div class="result mt-12" align="center">
+              <p class="text-gray-400 text-sm font-bold mb-2">
+                Dish: {{ dish }}
+              </p>
+              <p class="value text-blue-700 text-lg font-bold border rounded mt-4 mb-2 px-2">
+                {{ result }}
+              </p>
+            </div>
+          </div>
         </div>
-        <hr />
-        <br />
 
-        <form id="name-form" action="{{ url_for('main') }}" method="POST">
-          <label
-            class="block text-gray-700 text-sm font-bold mb-2"
-            for="name"
-          >
-            Enter a dish name:
-          </label>
-          <textarea
-            name="name"
-            id="name"
-            class="shadow appearance-none border rounded w-full py-2  px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-            rows="5"
-            placeholder="sushi, spicy chicken, ramen, etc."
-            required
-          ></textarea>
+        <div class="flex-initial">
+          <div class="p-12 max-w-lg bg-white rounded-lg overflow-hidden shadow-lg">
+            <div class="font-bold text-xl">
+              Where to eat?
+            </div>
 
-          <br />
+            <br />
 
-          <input
-            type="submit"
-            value="Find out"
-            class="button w-full bg-gray-700 text-white font-bold mt-8 p-4 rounded focus:outline-none focus:shadow-outline"
-          />
-        </form>
+            <div class="text-gray-400 text-sm font-bold mb-2">
+              You may change time if you are making plans
+            </div>
 
-        <div class="result mt-12" align="center">
-          <span id="predict_text">{{ predict_text }}</span>
-          <span id="selected_movie" class="text-gray-700">{{ movie }}</span>
-          <p class="text-blue-700 text-lg font-bold border rounded mt-4 mb-2">
-            {{ result }}
-          </p>
+            <div class="block flex items-center space-between space-x-4">
+
+              <label 
+                for="hour"
+                class="text-gray-700 text-sm font-bold">
+                Current hour: 
+              </label>
+
+              <input 
+                name="hour" 
+                id="hour"
+                class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                rows="1"
+                required
+              >
+            </div>
+
+            <div class="block flex items-center space-between space-x-4 mt-2">
+              <label
+                for="address"
+                class="block text-gray-700 text-sm font-bold">
+                Your address:
+              </label>
+
+              <input 
+                name="address" 
+                id="address"
+                class="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                rows="1"
+                value="Singapore"
+                required
+              />
+            </div>
+
+            <br />
+            <br />
+
+            <div class="mt-4" align="center">
+              <p class="text-gray-700 text-base font-bold">
+                Speciality of the best restaurants{{ hour }}:
+              </p>
+              <p class="text-blue-700 text-lg font-bold border rounded mt-2 mb-2 px-2">
+                {{ cuisine_rating }}
+              </p>
+            </div>
+
+            <div class="mt-4" align="center">
+              <p class="text-gray-700 text-base font-bold">
+                Locations (latitude, longitude):
+              </p>
+              <p class="text-blue-700 text-lg font-bold border rounded mt-2 mb-2 px-2">
+                {{ location_rating }}
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
+      </form>
     </div>
 
     <script
