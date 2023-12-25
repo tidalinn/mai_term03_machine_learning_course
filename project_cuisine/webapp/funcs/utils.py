@@ -21,7 +21,7 @@ multilabel = pickle.load(open('model/multilabel.pkl', 'rb'))
 def transform_label(label, vocab):
     return vocab.inverse_transform(np.array([label]))
 
-def transform_probs_to_labels(probs, threshold: float = 0.5):
+def transform_probs_to_labels(probs, threshold=0.5):
     return (probs > threshold).astype(int)
 
 def preprocess_prediction(pred, vocab):
@@ -55,10 +55,10 @@ def get_predictions(value, model_type):
         # load 
         model = joblib.load('model/model.h5')
 
-        prediction = model.predict([value])
+        prediction = model.predict([value])[0]
     
     # preprocess output
-    prediction = preprocess_prediction(*prediction, multilabel)
+    prediction = preprocess_prediction(prediction, multilabel)
 
     return prediction
 
