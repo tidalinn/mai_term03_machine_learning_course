@@ -4,6 +4,7 @@ import pandas as pd
 from datetime import datetime
 import requests
 import pickle
+import joblib
 
 from tensorflow.keras.models import load_model
 from tensorflow.keras.layers import TextVectorization
@@ -14,8 +15,6 @@ from geopy.geocoders import Nominatim
 
 # import models
 multilabel = pickle.load(open('model/multilabel.pkl', 'rb'))
-model = load_model('model/model.h5')
-vectorizer_file = pickle.load(open('model/vectorizer.pkl', 'rb'))
 
 
 # preprocess predictions
@@ -36,18 +35,30 @@ def preprocess_prediction(pred, vocab):
 
 
 # get predictions
-def get_predictions(value):
-    # convert vectorizer
-    vectorizer = TextVectorization.from_config(vectorizer_file['config'])
-    vectorizer.adapt([value])
-    vectorizer.set_weights(vectorizer_file['weights'])
+def get_predictions(value, model_type):  
+    if model_type == 'dl':
+        # load
+        model = load_model('model/model.h5')
+        vectorizer_file = pickle.load(open('model/vectorizer.pkl', 'rb'))
 
-    # make predictions
-    prediction = model.predict(vectorizer([value]))
-    # convert predictions
-    prediction = transform_probs_to_labels(prediction)[0]
+        # convert vectorizer
+        vectorizer = TextVectorization.from_config(vectorizer_file['config'])
+        vectorizer.adapt([value])
+        vectorizer.set_weights(vectorizer_file['weights'])
+
+        # make predictions
+        prediction = model.predict(vectorizer([value]))
+        # convert predictions
+        prediction = transform_probs_to_labels(prediction)[0]
+    
+    else:
+        # load 
+        model = joblib.load('model/model.h5')
+
+        prediction = model.predict([value])
+    
     # preprocess output
-    prediction = preprocess_prediction(prediction, multilabel)
+    prediction = preprocess_prediction(*prediction, multilabel)
 
     return prediction
 

@@ -22,7 +22,7 @@ def main():
         address = flask.request.form['address']
 
         # get predictions
-        prediction = get_predictions(name)
+        prediction = get_predictions(name, model_type='ml')
 
         
         cuisine_rating, location_rating = create_rating(
